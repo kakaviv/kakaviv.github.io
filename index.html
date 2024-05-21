@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" name="vaga_emprego" id="formulario">
+      <fieldset>
+        <legend>Trabalhe conosco</legend>
+        <div>
+          <label for="id_name">
+            Nome:
+            <input
+              type="text"
+              name="nomecompleto"
+              id="id_name"
+              required
+              placeholder="Informe seu nome"
+            />
+          </label>
+        </div>
+        <br />
+        <div>
+          <label for="ra_dio">Vagas disponíveis:</label> <br />
+          <br />
+          Dev Front-end JR
+          <input
+            type="radio"
+            name="radiocompleto"
+            value="Dev Front-end JR"
+            id="id_vaga"
+          />
+          Designer UI/UX
+          <input
+            type="radio"
+            name="radiocompleto"
+            value="Designer UI/UX"
+            id="id_vaga"
+          />
+        </div>
+        <br />
+        <label for="habilidades">Habilidades:</label> <br />
+        <br />
+
+        HTML5
+        <input
+          type="checkbox"
+          class="messageCheckbox"
+          name="checkboxes"
+          value="HTML"
+          id="id_habilidades"
+        />
+        JavaScript
+        <input
+          type="checkbox"
+          class="messageCheckbox"
+          name="checkboxes"
+          value="JavaScript"
+          id="id_habilidades"
+        />
+        Figma
+        <input
+          type="checkbox"
+          class="messageCheckbox"
+          name="checkboxes"
+          value="Figma"
+          id="id_habilidades"
+        />
+        <br />
+        <br />
+        <button type="submit">Enviar</button>
+      </fieldset>
+    </form>
+  </body>
+
+  <script type="module">
+    // Importação
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+    import {
+      getDatabase,
+      ref,
+      push,
+    } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqLvtj5yGi_jXzLb2dm0p6Stf60-WWOKA",
+      authDomain: "djabo-ec192.firebaseapp.com",
+      databaseURL: "https://djabo-ec192-default-rtdb.firebaseio.com",
+      projectId: "djabo-ec192",
+      storageBucket: "djabo-ec192.appspot.com",
+      messagingSenderId: "886416892230",
+      appId: "1:886416892230:web:61ae69a8a7165684fa4547",
+      measurementId: "G-FVDMV26012",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase();
+
+    let form = document.getElementById("formulario");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let vetor = [];
+
+      for (let i = 0; i < form.checkboxes.length; i++) {
+        if (form.checkboxes[i].checked) {
+          vetor[i] = form.checkboxes[i].value;
+          console.log(form.checkboxes[i].value);
+        }
+      }
+
+      alert(`
+      Nome: ${form.nomecompleto.value}
+      Vaga: ${form.radiocompleto.value}
+      Habilidades: ${vetor}
+      `);
+
+      // Enviar os dados para o Firebase
+      const usersRef = ref(database, "users");
+      push(usersRef, {
+        nome: form.nomecompleto.value,
+        radio: form.radiocompleto.value,
+        checks: vetor,
+      })
+        .then(() => {
+          alert("Dados enviados com sucesso!");
+          console.log("Dados enviados com sucesso!");
+          // Faça qualquer ação adicional aqui, como redirecionar o usuário ou exibir uma mensagem de sucesso.
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar dados:", error);
+        });
+    });
+  </script>
+</html>
