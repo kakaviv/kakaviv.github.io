@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário</title>
+    <title>Forms</title>
   </head>
   <body>
     <form action="" name="vaga_emprego" id="formulario">
@@ -22,6 +22,14 @@
           </label>
           <br>
           <br>
+          <div>
+            Data de nascimento:
+            <br>
+            <br>
+            <input type="date" id="id_data" name="data" value="">
+          </div>
+          <br>
+    
           <label for="ra_dio">Vagas disponíveis:</label> <br />
           <br />
           Dev Front-end JR
@@ -122,6 +130,7 @@
 
       alert(`
       Nome: ${form.nomecompleto.value}
+      Data de nascimento: ${form.data.value}
       Vaga: ${form.radiocompleto.value}
       Habilidades: ${vetor}
       Cursos: ${form.message_textarea.value}
