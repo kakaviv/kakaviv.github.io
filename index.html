@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>teste</title>
+    <title>Formulário</title>
   </head>
   <body>
     <form action="" name="vaga_emprego" id="formulario">
@@ -20,9 +20,8 @@
               placeholder="Informe seu nome"
             />
           </label>
-        </div>
-        <br />
-        <div>
+          <br>
+          <br>
           <label for="ra_dio">Vagas disponíveis:</label> <br />
           <br />
           Dev Front-end JR
@@ -43,7 +42,6 @@
         <br />
         <label for="habilidades">Habilidades:</label> <br />
         <br />
-
         HTML5
         <input
           type="checkbox"
@@ -68,6 +66,14 @@
           value="Figma"
           id="id_habilidades"
         />
+      </div>
+      <br>
+      <br />Cursos:
+      <br>
+      <br />
+     <textarea name="message_textarea" value="cursos" rows="5" cols="40"></textarea>
+      <br />
+      <div>
         <br />
         <br />
         <button type="submit">Enviar</button>
@@ -118,6 +124,7 @@
       Nome: ${form.nomecompleto.value}
       Vaga: ${form.radiocompleto.value}
       Habilidades: ${vetor}
+      Cursos: ${form.message_textarea.value}
       `);
 
       // Enviar os dados para o Firebase
@@ -125,7 +132,8 @@
       push(usersRef, {
         nome: form.nomecompleto.value,
         radio: form.radiocompleto.value,
-        checks: vetor,
+        cursos: form.message_textarea.value,
+        checks: vetor
       })
         .then(() => {
           alert("Dados enviados com sucesso!");
